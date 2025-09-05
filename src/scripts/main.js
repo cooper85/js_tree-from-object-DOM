@@ -26,6 +26,11 @@ const tree = document.querySelector('#tree');
  * @param data
  */
 function createTree(element, data) {
+  // prevent issue with empty ul
+  if (!Object.keys(data).length) {
+    return;
+  }
+
   // wrapper element
   const ul = document.createElement('ul');
 
@@ -35,7 +40,11 @@ function createTree(element, data) {
     li.textContent = key;
 
     // build tree recursively if there are child
-    if (Object.keys(value).length) {
+    if (
+      typeof value === 'object' &&
+      value !== null &&
+      Object.keys(value).length
+    ) {
       createTree(li, value);
     }
 
